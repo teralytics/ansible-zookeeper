@@ -1,0 +1,7 @@
+## OpenJDK Java
+#- name: geerlingguy.java
+#  src: git+https://github.com/geerlingguy/ansible-role-java
+#  version: tags/1.7.2
+- name: lhoss.java
+  src: git+https://github.com/lhoss/ansible-role-java
+  version: remotes/origin/support_configurable_ppa_repositories_per_distro

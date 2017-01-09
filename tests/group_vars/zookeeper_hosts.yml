@@ -1,0 +1,13 @@
+#    zookeeper_hosts:
+      zookeeper_version: 3.4.8
+      zookeeper_register_path_env: true
+      zookeeper_debian_apt_install: true
+      zookeeper_debian_apt_repositories:
+       - repository_url: "ppa:ufscar/zookeeper"
+         distro_version: "14.04"
+      # TODO it would be nice to test a real 3-node zookeeper cluster
+      # but this requires that those 3 hosts have proper intra-networking in docker
+      # unfort. molecule does not yet provide setting a custom network (which would provide it)
+      # Open issue: https://github.com/metacloud/molecule/issues/650
+#      zookeeper_hosts: "{{ groups['zookeeper_hosts'] }}"
+      zookeeper_hosts: ["{{inventory_hostname}}"]

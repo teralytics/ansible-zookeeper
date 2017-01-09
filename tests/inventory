@@ -1,0 +1,8 @@
+zookeeper01 ansible_connection=docker
+zookeeper02 ansible_connection=docker
+zookeeper03 ansible_connection=docker
+
+[zookeeper_hosts]
+zookeeper01
+zookeeper02
+zookeeper03

@@ -1,6 +1,26 @@
 ---
-- hosts: localhost
-  connection: local
-  remote_user: root
+## The following section is a hack to get this role running in docker containers
+
+- hosts: all
+  become: True
+#  vars:
+#      hostgroup: 'all'   # Which group in the ansible inventory should be considered
+#      ipaddrnr: 0
+#      hosts_file: /etc/hosts
+  tasks:
+  - debug: msg="zookeeper_version={{zookeeper_version}}"
+  - debug: msg="zookeeper_debian_apt_install={{zookeeper_debian_apt_install}}"
+  - debug: msg="java_openjdk_ppa_repos_support={{java_openjdk_ppa_repos_support}}"
+  - debug: msg="java_openjdk_ppa_mappings={{java_openjdk_ppa_mappings}}"
+  - debug: msg="java_packages={{java_packages}}"
+  # TODO use customized Ub 14.04 container (to get rid of following fix)
+  - name: ensure systemd is *not* running
+    apt: name="systemd-shim" state="present"
+    when:
+     - "{{ ansible_distribution_version|version_compare('14.04', '=') }}"
+
+- hosts: zookeeper_hosts
+  become: True
   roles:
-    - role: role_under_test
+  - role: "lhoss.java"
+  - role: "ansible-zookeeper"
